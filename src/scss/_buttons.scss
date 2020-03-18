@@ -24,6 +24,12 @@ $catColorsHover: (
   other: #F3E68C
 );
 
+$statusColors: (
+  all: #e0e0e0,
+  Open: #3c825970,
+  Closed: #d6640070
+);
+
 .search {
   margin: 0 auto;
   text-align: center;
@@ -61,6 +67,77 @@ $catColorsHover: (
 	}
 }
 
+.statusFilter {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  text-align: center;
+
+  h3 {
+    font-size: 15px !important;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  div.feature {
+    /*width: 130px;*/
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    height: auto;
+
+  input {
+      display: inline;
+      opacity: 0;
+      position: absolute;
+      z-index: 10000;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 25px;
+
+          &:hover {
+            cursor: pointer;
+          }
+          /*&:checked {
+          &::before {
+              content: '-';
+            }
+          }*/
+    }
+    input:checked + label {
+      // font-weight: bold;
+      border: 2px solid black;
+      // color: #006341;
+    }
+    input:selected + label.type {
+      // font-weight: bold;
+      // border: 2px solid #006341;
+    }
+    @each $cat, $color in $statusColors {
+      label.features.#{$cat} {
+          /*display: inline-block; */
+          // border: 1px solid #a0a0a0; /*was 006341 */
+          padding: 5px 10px 5px 10px;
+          line-height: 1;
+          margin-right: 5px;
+          margin-bottom: 5px;
+          border-radius: 5px;
+          font-size: 14px;
+          position: relative;
+          width: auto;
+          color: black;
+          background-color: $color;
+      }
+    }
+    label.features, label.type {
+      @media (min-width: 701px) {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
 .categorySelector {
   max-width: 500px;
   margin: 0 auto;
@@ -70,7 +147,7 @@ $catColorsHover: (
   h3 {
     font-size: 15px !important;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   div.feature {
     /*width: 130px;*/
@@ -92,7 +169,6 @@ $catColorsHover: (
 
         &:hover {
           cursor: pointer;
-          background-color: blue;
         }
         /*&:checked {
         &::before {
@@ -139,7 +215,6 @@ $catColorsHover: (
           width: auto;
           color: black;
           background-color: $color;
-
       }
     }
     label.features, label.type {

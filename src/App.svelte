@@ -37,7 +37,10 @@
   // props
   export let events;
   export let categories = ['all', 'arts', 'business', 'concert', 'free', 'gov', 'religious', 'restaurant', 'sports', 'other']
+  export let closed = ['Suspended/Postponed', 'Cancelled', 'Closed']
+  export let open = ['Open', 'Other']
   export let checked_cats = [];
+  export let checked_status = [];
   export let scrollY;
   export let y_from_top;
 
@@ -71,39 +74,22 @@
   			match = false;
   		}
 
+      if (checked_status.length == 0 || checked_status == 'All') {
+        match = true;
+      }
+      else if (checked_status == 'Closed' && open.includes(event.status)) {
+        match = false;
+      }
+      else if (checked_status == 'Open' && closed.includes(event.status)) {
+        match = false;
+      }
+
       let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
       if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
   			match = false;
   		}
-
   		return match;
-
     })
-
-    console.log(filteredEvents)
-
-    // if (search_term.length > 2) {
-    //   search = true
-    // }
-    // else {
-    //   search = false
-    // }
-    //
-    // if (search) {
-    //     filteredEvents = events.filter(function(d) {
-    //       return d.event_name.includes(search_term)
-    //     })
-    //     console.log(filteredEvents)
-    // }
-    //
-    // if (checked_cats.length == 0 || checked_cats == 'all') {
-    //   filteredEvents = events;
-    // }
-    // else {
-    //   filteredEvents = events.filter(function(d) {
-    //     return d.category === checked_cats;
-    //   })
-    // }
   }
 
   onMount(async function() {
@@ -116,6 +102,22 @@
   <h3>Search</h3>
   <i class="strib-icon strib-search"></i>
   <input bind:value={search_term} />
+</div>
+
+<div class="statusFilter">
+  <h3>Open or closed?</h3>
+  <div class="feature">
+    <input type=radio bind:group={checked_status} value="All">
+    <label class="features all">All</label>
+  </div>
+  <div class="feature">
+    <input type=radio bind:group={checked_status} value="Open">
+    <label class="features Open">Open</label>
+  </div>
+  <div class="feature">
+    <input type=radio bind:group={checked_status} value="Closed">
+    <label class="features Closed">Closed</label>
+  </div>
 </div>
 
 <div class="categorySelector">

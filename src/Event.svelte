@@ -16,10 +16,6 @@
 
 </script>
 
-<style>
-
-</style>
-
 <div class="eventCard">
   <h5 class="title-{event.category}">{category_labels[event.category]}</h5>
   <h3>{event.event_name}</h3>
@@ -30,12 +26,18 @@
       {:else}
         {event.city} - <span class="open">{event.status}</span>
       {/if}
+    {:else if event.status == "Other"}
+      {#if event.venue}
+        {event.venue} - {event.status}
+      {:else}
+        {event.city} - {event.status}
+      {/if}
     {:else}
-    {#if event.venue}
-      {event.venue} - {event.status}
-    {:else}
-      {event.city} - {event.status}
-    {/if}
+      {#if event.venue}
+        {event.venue} - <span class="closed">{event.status}</span>
+      {:else}
+        {event.city} - <span class="closed">{event.status}</span>
+      {/if}
   {/if}
   </p>
   <p>{event.desc}</p>
