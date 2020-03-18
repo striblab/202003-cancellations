@@ -17,13 +17,19 @@ html, body {
 	margin: 20px 0;
 }
 
+.feature {
+	background: transparent !important;
+	padding: 0 !important;
+}
+
 h1 {
   font-family: "Whitman Display", Georgia, serif;
 	font-size: 50px !important;
 	font-weight: 400 !important;
 	margin-top: 35px;
 	max-width: 800px;
-  margin: 0 auto;
+  text-align: center !important;
+	margin: 0 auto !important;
   // max-width: 650px;
 }
 
@@ -69,5 +75,12 @@ h4 {
 			font-family: "Popular", sans-serif !important;
 			margin-bottom: 25px !important;
 			margin-top: 0 !important;
+			font-size: 16px !important;
 		}
+}
+
+@media(max-width: 550px) {
+	h1 {
+		line-height: 48px;
+	}
 }

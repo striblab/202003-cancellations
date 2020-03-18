@@ -1,13 +1,15 @@
 $catColors: (
-  all: #a9a9a9,
+  all: #e0e0e0,
   arts: #A5D4CB70,
   business: #CFCCE470,
   concert: #F29E9670,
-  free: #92B7D070,
+  free: #C1D99170,
+  grocery: #BA95BA70,
+  pharm: #4BA05370,
   gov: #F7C58D70,
-  religious: #C1D99170,
+  religious: #92B7D070,
   restaurant: #EEB7D270,
-  sports: #BA95BA70,
+  sports: #59BAA270,
   other: #F3E68C70
 );
 
@@ -25,10 +27,10 @@ $catColors: (
   flex-wrap: wrap;
   flex-direction: flex-start;
   justify-content: space-between;
-
+  margin-bottom: 150px;
 
   .eventCard {
-    flex-basis: 29%;
+    flex-basis: 32%;
     // max-width: 300px;
     border: 1px solid #CCCCCC;
     padding: 12px;
@@ -40,7 +42,7 @@ $catColors: (
       margin-top:0;
       text-transform: uppercase;
       font-family: "Benton Sans", sans-serif;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 400;
       letter-spacing: 0.6px;
       width: auto;
@@ -49,9 +51,10 @@ $catColors: (
     .city {
       font-size: 10px;
       color: #787878;
+      font-family: "Benton Sans", sans-serif !important;
+      margin-bottom: 8px !important;
 
       .open {
-        text-transform: uppercase;
         color: #3c8259;
         font-weight: bold;
       }
@@ -70,9 +73,22 @@ $catColors: (
     p {
       font-size: 14px;
       margin-top: 0;
+      font-family: "Benton Sans", sans-serif !important;
     }
   }
 }
+
+@media(max-width: 950px) {
+  .eventsContainer {
+    justify-content: space-around;
+
+    .eventCard {
+      flex-basis: 40%;
+    }
+  }
+
+}
+
 @media(max-width: 550px) {
   .eventsContainer {
     flex-direction: column;
@@ -83,4 +99,5 @@ $catColors: (
     left: 30px;
     top: 45px;
   }
+
 }

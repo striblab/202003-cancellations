@@ -20,6 +20,8 @@ def switch(i):
         "Concert": "concert",
         "Free service": "free",
         "Government": "gov",
+        "Grocery Store": 'grocery',
+        "Pharmacy": "pharm",
         "Religious": "religious",
         "Restaurant": "restaurant",
         "School (K-12)": "k12_school",

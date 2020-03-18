@@ -6,14 +6,14 @@
     'concert': 'Concert',
     'free': 'Free services',
     'gov': 'Government',
+    'grocery': 'Grocery Store',
+    'pharm': 'Pharmacy',
     'religious': 'Religious',
     'restaurant': 'Restaurants',
     'sports': 'Sports',
     'other': 'Other events',
     'all': 'All'
   }
-
-
 </script>
 
 <div class="eventCard">
