@@ -21,6 +21,7 @@ def switch(i):
         "Free service": "free",
         "Government": "gov",
         "Religious": "religious",
+        "Restaurant": "restaurant",
         "School (K-12)": "k12_school",
         "School (University/college)": "college",
         "Sports": "sports",
@@ -34,6 +35,7 @@ def sheet_to_json(obj, filename):
     for row in islice(obj, 2, None):
         timestamp = row[0]
         name = row[1]
+        status = row[10]
         category = switch(row[2])
         end_date = row[3]
         city = row[4]
@@ -48,8 +50,9 @@ def sheet_to_json(obj, filename):
         else:
             obj_props = {
                 "timestamp": timestamp,
-                "event name": name,
+                "event_name": name,
                 "category": category,
+                "status": status,
                 "city": city,
                 "cancel_date": cancel_date,
                 "planned_time": planned_time,

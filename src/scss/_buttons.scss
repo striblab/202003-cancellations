@@ -1,0 +1,164 @@
+$catColors: (
+  all: #e0e0e0,
+  arts: #A5D4CB70,
+  business: #CFCCE470,
+  concert: #F29E9670,
+  free: #92B7D070,
+  gov: #F7C58D70,
+  religious: #C1D99170,
+  restaurant: #EEB7D270,
+  sports: #BA95BA70,
+  other: #F3E68C70
+);
+
+$catColorsHover: (
+  all: #bebebe,
+  arts: #A5D4CB,
+  business: #CFCCE4,
+  concert: #F29E96,
+  free: #92B7D0,
+  gov: #F7C58D,
+  religious: #C1D991,
+  restaurant: #EEB7D2,
+  sports: #BA95BA,
+  other: #F3E68C
+);
+
+.search {
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 25px;
+  max-width: 450px;
+  position: relative;
+
+  h3 {
+    // margin-bottom: 0;
+    font-size: 15px !important;
+  }
+
+  input {
+    width: 85%;
+    text-align: center;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid #cccccc;
+
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+    }
+  }
+
+  .strib-search {
+		display: block;
+		position: absolute;
+		left: 40px;
+		top: 45px;
+		height: 10px;
+		color: #cccccc; /* was gray */
+
+	}
+}
+
+.categorySelector {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  text-align: center;
+
+  h3 {
+    font-size: 15px !important;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  div.feature {
+    /*width: 130px;*/
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    height: auto;
+
+    input {
+        display: inline;
+        opacity: 0;
+        position: absolute;
+        z-index: 10000;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        min-height: 25px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: blue;
+        }
+        /*&:checked {
+        &::before {
+            content: '-';
+          }
+        }*/
+      }
+      input:checked + label {
+        // font-weight: bold;
+        border: 2px solid black;
+        // color: #006341;
+      }
+     /* input:checked + label.features::before {
+        content: '-';
+      }*/
+      input:selected + label.type {
+        // font-weight: bold;
+        // border: 2px solid #006341;
+      }
+      label.type {
+        display: inline-block;
+        border: 1px solid #a0a0a0; /*was 006341 */
+        padding: 5px 10px 5px 10px;
+        line-height: 1;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 8px;
+        font-size: 14px;
+        position: relative;
+        width: auto;
+        color: black; /*was 006341 */
+    }
+    @each $cat, $color in $catColors {
+      label.features.#{$cat} {
+          /*display: inline-block; */
+          // border: 1px solid #a0a0a0; /*was 006341 */
+          padding: 5px 10px 5px 10px;
+          line-height: 1;
+          margin-right: 5px;
+          margin-bottom: 5px;
+          border-radius: 5px;
+          font-size: 14px;
+          position: relative;
+          width: auto;
+          color: black;
+          background-color: $color;
+
+      }
+    }
+    label.features, label.type {
+      @media (min-width: 701px) {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media(max-width: 550px) {
+
+  .search {
+    .strib-search {
+      font-size: 20px;
+      position: absolute;
+      left: 30px;
+      top: 40px;
+    }
+  }
+
+}

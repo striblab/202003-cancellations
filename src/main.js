@@ -1,9 +1,10 @@
 import App from './App.svelte';
+import './scss/style.scss';
 
 const app = new App({
-	target: document.body,
+	target: document.querySelector('.l-container'),
 	props: {
-		'title': 'Star Tribune Svelte 3 app'
+		'title': 'COVID-19 Minnesota Cancellations'
 	}
 });
 

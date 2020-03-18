@@ -1,0 +1,82 @@
+$catColors: (
+  all: #a9a9a9,
+  arts: #A5D4CB70,
+  business: #CFCCE470,
+  concert: #F29E9670,
+  free: #92B7D070,
+  gov: #F7C58D70,
+  religious: #C1D99170,
+  restaurant: #EEB7D270,
+  sports: #BA95BA70,
+  other: #F3E68C70
+);
+
+@each $cat, $color in $catColors {
+  .title-#{$cat} {
+    background-color: $color;
+    padding: 3px 4px 2px 4px;
+  }
+}
+
+.eventsContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: flex-start;
+  justify-content: space-between;
+
+
+  .eventCard {
+    flex-basis: 29%;
+    // max-width: 300px;
+    border: 1px solid #CCCCCC;
+    padding: 12px;
+    margin: 6px 6px;
+
+    h5 {
+      display: inline-block;
+      margin-bottom: 0;
+      margin-top:0;
+      text-transform: uppercase;
+      font-family: "Benton Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.6px;
+      width: auto;
+    }
+
+    .city {
+      font-size: 10px;
+      color: #787878;
+
+      .open {
+        text-transform: uppercase;
+        color: #3c8259;
+        font-weight: bold;
+      }
+    }
+
+    h3 {
+      font-size: 16px !important;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 14px;
+      margin-top: 0;
+    }
+  }
+}
+@media(max-width: 550px) {
+  .eventsContainer {
+    flex-direction: column;
+  }
+
+  .strib-search {
+    font-size: 20px;
+    left: 30px;
+    top: 45px;
+  }
+}

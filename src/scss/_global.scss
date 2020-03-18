@@ -1,61 +1,73 @@
 html, body {
 	position: relative;
-	width: 100%;
-	height: 100%;
+	// width: 100%;
+	// height: 100%;
 }
 
-body {
-	color: #333;
-	margin: 0;
-	padding: 8px;
-	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+.content-scroll {
+	max-width: none;
 }
 
-a {
-	color: rgb(0,100,200);
-	text-decoration: none;
+.l-container,
+.leadin {
+	margin: 20px 20px;
 }
 
-a:hover {
-	text-decoration: underline;
+.share-block {
+	margin: 20px 0;
 }
 
-a:visited {
-	color: rgb(0,80,160);
+h1 {
+  font-family: "Whitman Display", Georgia, serif;
+	font-size: 50px !important;
+	font-weight: 400 !important;
+	margin-top: 35px;
+	max-width: 800px;
+  margin: 0 auto;
+  // max-width: 650px;
 }
 
-label {
-	display: block;
+h2 {
+	font-family: "Benton Sans", sans-serif !important;
+	font-weight: bold;
+	font-size: 1.5em !important;
 }
 
-input, button, select, textarea {
-	font-family: inherit;
-	font-size: inherit;
-	padding: 0.4em;
-	margin: 0 0 0.5em 0;
-	box-sizing: border-box;
-	border: 1px solid #ccc;
-	border-radius: 2px;
+h3 {
+	font-family: "Benton Sans", sans-serif !important;
+	font-weight: bold;
+	font-size: 1em !important;
 }
 
-input:disabled {
-	color: #ccc;
+h4 {
+	font-family: "Benton Sans", sans-serif;
+	font-weight: 400;
+	font-size: 13px;
 }
 
-input[type="range"] {
-	height: 0;
+.leadin {
+	text-align: center;
+	margin-bottom: 75px;
+	margin-top: 65px;
+
+	p {
+		font-family: "Poynter Serif RE",Georgia,Times,serif !important;
+		text-align: left;
+		max-width: 550px;
+		font-size: 16px;
+		margin: 15px auto;
+		line-height: 140%;
+	}
+
+	a {
+		color: #1d78af;
+	}
 }
 
-button {
-	background-color: #f4f4f4;
-	outline: none;
-}
-
-button:active {
-	background-color: #ddd;
-}
-
-button:focus {
-	border-color: #666;
+.text {
+		h3 {
+			font-family: "Popular", sans-serif !important;
+			margin-bottom: 25px !important;
+			margin-top: 0 !important;
+		}
 }
