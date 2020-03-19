@@ -8,25 +8,23 @@
   // let json = [];
   let backup_timer;
   let filteredEvents;
+  let openFilteredEvents;
+  let closedFilteredEvents;
   let search_term = '';
   let search = false;
   let category_labels = {
     'arts': 'Arts',
     'business': 'Business',
     'concert': 'Concerts',
-    'free': 'Free services',
     'gov': 'Government',
     'grocery': 'Groceries',
+    'mall': 'Malls',
     'pharm': 'Pharmacies',
     'religious': 'Religious',
     'restaurant': 'Restaurants',
     'sports': 'Sports',
     'other': 'Other',
     'all': 'All'
-  }
-
-  function detach(node) {
-    node.parentNode.removeChild(node);
   }
 
   // let getData = async function() {
@@ -44,13 +42,15 @@
 
   // props
   export let events;
-  export let categories = ['all', 'arts', 'business', 'concert', 'free', 'gov', 'grocery', 'pharm','religious', 'restaurant', 'sports', 'other']
-  export let closed = ['Suspended/Postponed', 'Cancelled', 'Closed']
-  export let open = ['Open', 'Other']
+  export let categories = ['all', 'arts', 'business', 'concert', 'gov', 'grocery', 'mall', 'pharm','religious', 'restaurant', 'sports', 'other']
+  // export let closed = ['Suspended/Postponed', 'Cancelled', 'Closed']
+  // export let open = ['Open', 'Other']
   export let checked_cats = 'all';
   export let checked_status = 'Open';
   export let scrollY;
   export let y_from_top;
+  export let open_loc = [];
+  export let closed_loc = [];
 
   export const clearFilters = function() {
     checked_cats = [];
@@ -73,32 +73,92 @@
     })
     events = events.reverse();
 
-    // if (search_term.length == 0) {
-    //   clearFilters()
-    // }
-
-    filteredEvents = events.filter(event => {
-      let match = true;
-
-      if (checked_status == 'All' && checked_cats == 'all') {
-        match = true;
-      }
-      else if (checked_status == 'Closed' && open.includes(event.status)) {
-        match = false;
-      }
-      else if (checked_status == 'Open' && closed.includes(event.status)) {
-        match = false;
-      }
-      else if (checked_cats != 'all' && event.category != checked_cats) {
-  			match = false;
-  		}
-
-      let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
-      if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
-  			match = false;
-  		}
-  		return match;
+    open_loc = events.filter(function(d) {
+      return d.status == 'Open' || d.status == 'Other';
     })
+
+    closed_loc = events.filter(function(d) {
+      return d.status === 'Closed' || d.status === 'Cancelled' || d.status === 'Suspended/Postponed';
+    })
+
+    // console.log(open_loc)
+    // console.log(closed_loc)
+
+    if (checked_status == 'Open') {
+      openFilteredEvents = open_loc.filter(event => {
+        let match = true;
+
+        if (checked_cats == 'all') {
+          match = true;
+        }
+        else if (checked_cats != 'all' && event.category != checked_cats) {
+      		match = false;
+      	}
+        let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
+          if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
+      			match = false;
+      		}
+      	return match;
+      });
+
+    }
+    else if (checked_status == 'Closed') {
+      closedFilteredEvents = closed_loc.filter(event => {
+        let match = true;
+
+        if (checked_cats == 'all') {
+          match = true;
+        }
+        else if (checked_cats != 'all' && event.category != checked_cats) {
+      		match = false;
+      	}
+        let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
+          if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
+      			match = false;
+      		}
+      	return match;
+      });
+    }
+    else if (checked_status == 'All') {
+      filteredEvents = events.filter(event => {
+        let match = true;
+
+        if (checked_cats == 'all') {
+          match = true;
+        }
+        else if (checked_cats != 'all' && event.category != checked_cats) {
+      		match = false;
+      	}
+        let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
+          if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
+      			match = false;
+      		}
+      	return match;
+      });
+    }
+
+    // filteredEvents = events.filter(event => {
+    //   let match = true;
+    //
+    //   if (checked_status == 'All' && checked_cats == 'all') {
+    //     match = true;
+    //   }
+    //   else if (checked_status == 'Closed' && open.includes(event.status)) {
+    //     match = false;
+    //   }
+    //   else if (checked_status == 'Open' && closed.includes(event.status)) {
+    //     match = false;
+    //   }
+    //   else if (checked_cats != 'all' && event.category != checked_cats) {
+  	// 		match = false;
+  	// 	 }
+    //
+    //   let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
+    //   if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
+  	// 		match = false;
+  	// 	}
+  	// 	return match;
+    // })
 
   }
 
@@ -140,13 +200,33 @@
   {/each}
 </div>
 
+<p class="lastUpdated">Last updated: {events[0].last_update}</p>
+
 <div class="eventsContainer">
-  {#if filteredEvents.length == 0}
-    <p class="noResults">No results</p>
-  {:else}
-    {#each filteredEvents as event}
-      <Event {event}/>
-    {/each}
+  {#if checked_status === 'Open'}
+    {#if openFilteredEvents.length == 0}
+      <p class="noResults">No results</p>
+    {:else}
+      {#each openFilteredEvents as event}
+        <Event {event}/>
+      {/each}
+    {/if}
+  {:else if checked_status === 'Closed'}
+    {#if closedFilteredEvents.length == 0}
+      <p class="noResults">No results</p>
+    {:else}
+      {#each closedFilteredEvents as event}
+        <Event {event}/>
+      {/each}
+    {/if}
+  {:else if checked_status === 'All'}
+    {#if filteredEvents.length == 0}
+      <p class="noResults">No results</p>
+    {:else}
+      {#each filteredEvents as event}
+        <Event {event}/>
+      {/each}
+    {/if}
   {/if}
 </div>
 

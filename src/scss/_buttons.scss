@@ -3,7 +3,7 @@ $catColors: (
   arts: #A5D4CB70,
   business: #CFCCE470,
   concert: #F29E9670,
-  free: #C1D99170,
+  mall: #C1D99170,
   grocery: #BA95BA70,
   pharm: #4BA05370,
   gov: #F7C58D70,
@@ -115,7 +115,7 @@ $statusColors: (
 
     input:not(:checked) + label.features{
       /* Explicit Unchecked Styles */
-      opacity: 0.6;// Only apply border to unchecked state
+      opacity: 0.65;// Only apply border to unchecked state
     }
 
     @each $cat, $color in $statusColors {
@@ -189,7 +189,7 @@ $statusColors: (
       }
       input:not(:checked) + label{
         /* Explicit Unchecked Styles */
-        opacity: 0.6;// Only apply border to unchecked state
+        opacity: 0.65;// Only apply border to unchecked state
       }
      /* input:checked + label.features::before {
         content: '-';

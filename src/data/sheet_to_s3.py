@@ -1,4 +1,5 @@
 import gspread, os.path, boto3, json
+from datetime import datetime
 from itertools import islice
 from oauth2client.service_account import ServiceAccountCredentials
 from googleapiclient.discovery import build
@@ -18,9 +19,9 @@ def switch(i):
         "Arts":'arts',
         "Business": 'business',
         "Concert": "concert",
-        "Free service": "free",
         "Government": "gov",
         "Grocery Store": 'grocery',
+        "Mall": "mall",
         "Pharmacy": "pharm",
         "Religious": "religious",
         "Restaurant": "restaurant",
@@ -46,15 +47,19 @@ def sheet_to_json(obj, filename):
         venue = row[7]
         planned_time = row[8]
         planned_end_time = row[9]
+        last_update = datetime.now().strftime("%b %d, %I:%M %p")
+        url = row[11]
 
         if not row:
             continue
         else:
             obj_props = {
                 "timestamp": timestamp,
+                "last_update": last_update,
                 "event_name": name,
                 "category": category,
                 "status": status,
+                "url": url,
                 "city": city,
                 "cancel_date": cancel_date,
                 "planned_time": planned_time,

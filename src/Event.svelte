@@ -4,12 +4,12 @@
     'arts': 'Arts',
     'business': 'Business',
     'concert': 'Concert',
-    'free': 'Free services',
     'gov': 'Government',
     'grocery': 'Grocery Store',
+        'mall': 'Mall',
     'pharm': 'Pharmacy',
     'religious': 'Religious',
-    'restaurant': 'Restaurants',
+    'restaurant': 'Restaurant',
     'sports': 'Sports',
     'other': 'Other',
     'all': 'All'
@@ -22,23 +22,26 @@
   <p class="city">
     {#if event.status == "Open"}
       {#if event.venue}
-        {event.venue} - <span class="open">{event.status}</span>
+        {event.venue} <span class="bullet">&bull;</span> <span class="open">{event.status}</span>
       {:else}
-        {event.city} - <span class="open">{event.status}</span>
+        {event.city} <span class="bullet">&bull;</span> <span class="open">{event.status}</span>
       {/if}
     {:else if event.status == "Other"}
       {#if event.venue}
-        {event.venue} - {event.status}
+        {event.venue} <span class="bullet">&bull;</span> {event.status}
       {:else}
-        {event.city} - {event.status}
+        {event.city} <span class="bullet">&bull;</span> {event.status}
       {/if}
     {:else}
       {#if event.venue}
-        {event.venue} - <span class="closed">{event.status}</span>
+        {event.venue} <span class="bullet">&bull;</span> <span class="closed">{event.status}</span>
       {:else}
-        {event.city} - <span class="closed">{event.status}</span>
+        {event.city} <span class="bullet">&bull;</span> <span class="closed">{event.status}</span>
       {/if}
   {/if}
   </p>
   <p>{event.desc}</p>
+  {#if event.url}
+    <a class="eventUrl" href="{event.url}" target="_blank">Website</a>
+  {/if}
 </div>

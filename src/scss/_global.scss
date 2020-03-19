@@ -4,6 +4,11 @@ html, body {
 	// height: 100%;
 }
 
+.page-article .l-home-top-ad.resultsBanner {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .content-scroll {
 	max-width: none;
 }
@@ -51,6 +56,16 @@ h4 {
 	font-size: 13px;
 }
 
+p.lastUpdated {
+	font-family: "Benton Sans", sans-serif;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 400;
+	color: #808080;
+	text-align: center;
+	margin-bottom: 35px;
+}
+
 .leadin {
 	text-align: center;
 	margin-bottom: 75px;
@@ -70,14 +85,15 @@ h4 {
 	}
 
 	.byline {
-		text-align: center;
-	  font-weight: bold;
-		font-size: 14px;
+		text-align: center !important;
+	  font-weight: bold !important;
+		font-size: 14px !important;
 		font-family: "Benton Sans", sans-serif !important;
-		margin: 30px auto;
+		margin: 30px auto !important;
+		color: black !important;
 
 		span {
-		  font-weight: normal;
+		  font-weight: normal !important;
 		}
 	}
 

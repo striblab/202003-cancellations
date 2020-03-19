@@ -3,7 +3,7 @@ $catColors: (
   arts: #A5D4CB70,
   business: #CFCCE470,
   concert: #F29E9670,
-  free: #C1D99170,
+  mall: #C1D99170,
   grocery: #BA95BA70,
   pharm: #4BA05370,
   gov: #F7C58D70,
@@ -39,7 +39,7 @@ $catColors: (
 
   .eventCard {
     flex-basis: 32%;
-    // max-width: 300px;
+    position: relative;
     border: 1px solid #CCCCCC;
     padding: 12px;
     margin: 6px 6px;
@@ -57,10 +57,11 @@ $catColors: (
     }
 
     .city {
-      font-size: 10px;
+      font-size: 11px;
       color: #787878;
       font-family: "Benton Sans", sans-serif !important;
       margin-bottom: 8px !important;
+      letter-spacing: 0.2px;
 
       .open {
         color: #3c8259;
@@ -69,6 +70,11 @@ $catColors: (
 
       .closed {
         color: #d66400;
+      }
+
+      .bullet {
+        text-shadow: 0 0 0 #A9A9A9;
+        color: transparent;
       }
     }
 
@@ -81,7 +87,17 @@ $catColors: (
     p {
       font-size: 14px;
       margin-top: 0;
+      margin-bottom: 8px;
       font-family: "Benton Sans", sans-serif !important;
+    }
+
+    a.eventUrl {
+      margin-top: 8px;
+      // position: absolute;
+      // bottom: 8px;
+      font-family: "Benton Sans", sans-serif !important;
+    	color: #1d78af;
+      font-size: 11px;
     }
   }
 }
