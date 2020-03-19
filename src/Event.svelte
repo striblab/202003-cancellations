@@ -11,7 +11,7 @@
     'religious': 'Religious',
     'restaurant': 'Restaurants',
     'sports': 'Sports',
-    'other': 'Other events',
+    'other': 'Other',
     'all': 'All'
   }
 </script>

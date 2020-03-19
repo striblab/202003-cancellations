@@ -27,7 +27,7 @@ def switch(i):
         "School (K-12)": "k12_school",
         "School (University/college)": "college",
         "Sports": "sports",
-        "Other event": "other"
+        "Other": "other"
     }
     return switcher.get(i, "")
 

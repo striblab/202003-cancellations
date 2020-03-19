@@ -68,6 +68,19 @@ h4 {
 	a {
 		color: #1d78af;
 	}
+
+	.byline {
+		text-align: center;
+	  font-weight: bold;
+		font-size: 14px;
+		font-family: "Benton Sans", sans-serif !important;
+		margin: 30px auto;
+
+		span {
+		  font-weight: normal;
+		}
+	}
+
 }
 
 .text {
@@ -77,6 +90,19 @@ h4 {
 			margin-top: 0 !important;
 			font-size: 16px !important;
 		}
+}
+
+#credits {
+	max-width: 1000px;
+	margin: 0 auto;
+	margin-bottom: 125px;
+	p {
+		font-family: "Benton Sans", sans-serif;
+		font-size: 12px;
+		color: #989898;
+		margin-top: 16px !important;
+		margin-bottom: 16px !important;
+	}
 }
 
 @media(max-width: 550px) {

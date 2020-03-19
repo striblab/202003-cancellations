@@ -13,21 +13,21 @@
   let category_labels = {
     'arts': 'Arts',
     'business': 'Business',
-    'concert': 'Concert',
+    'concert': 'Concerts',
     'free': 'Free services',
     'gov': 'Government',
-    'grocery': 'Grocery Store',
-    'pharm': 'Pharmacy',
+    'grocery': 'Groceries',
+    'pharm': 'Pharmacies',
     'religious': 'Religious',
     'restaurant': 'Restaurants',
     'sports': 'Sports',
-    'other': 'Other events',
+    'other': 'Other',
     'all': 'All'
   }
 
-  // "https://static.startribune.com/news/projects/all/202003-cancellations/cancellations.json"
-  // "https://static.startribune.com/news/projects/all/202003-cancellations/cancellations.json?initial=true"
-
+  function detach(node) {
+    node.parentNode.removeChild(node);
+  }
 
   // let getData = async function() {
 	// 	const response = await fetch("https://static.startribune.com/news/projects/all/202003-cancellations/cancellations.json")
@@ -48,7 +48,7 @@
   export let closed = ['Suspended/Postponed', 'Cancelled', 'Closed']
   export let open = ['Open', 'Other']
   export let checked_cats = 'all';
-  export let checked_status = 'All';
+  export let checked_status = 'Open';
   export let scrollY;
   export let y_from_top;
 
@@ -80,28 +80,19 @@
     filteredEvents = events.filter(event => {
       let match = true;
 
-      if (checked_status == 'All') {
+      if (checked_status == 'All' && checked_cats == 'all') {
         match = true;
       }
-      if (checked_status == 'Closed' && open.includes(event.status)) {
+      else if (checked_status == 'Closed' && open.includes(event.status)) {
         match = false;
       }
-      if (checked_status == 'Open' && closed.includes(event.status)) {
+      else if (checked_status == 'Open' && closed.includes(event.status)) {
         match = false;
       }
-
-      if (checked_cats == 'all') {
-        match = true
-      }
-      if (checked_cats != 'all' && event.category != checked_cats) {
+      else if (checked_cats != 'all' && event.category != checked_cats) {
   			match = false;
   		}
-      // else if (checked_cats.length == 0 || checked_cats == 'all') {
-      //   match = true
-      // }
-      // else if (checked_cats != 'all' && event.category != checked_cats) {
-  		// 	match = false;
-  		// }
+
       let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
       if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
   			match = false;
@@ -140,7 +131,7 @@
 </div>
 
 <div class="categorySelector">
-  <h3>Select a category</h3>
+  <h3>Filter results by category</h3>
   {#each categories as category}
     <div class="feature {category}">
       <input type=radio bind:group={checked_cats} value={category} class:all-selected="{categories == checked_cats}">
@@ -150,7 +141,16 @@
 </div>
 
 <div class="eventsContainer">
-  {#each filteredEvents as event}
-    <Event {event}/>
-  {/each}
+  {#if filteredEvents.length == 0}
+    <p class="noResults">No results</p>
+  {:else}
+    {#each filteredEvents as event}
+      <Event {event}/>
+    {/each}
+  {/if}
 </div>
+
+<!-- <section id="credits">
+		<p>Data compiled by Star Tribune staff</p>
+		<p>Design and development by Thomas Oide</p>
+</section> -->

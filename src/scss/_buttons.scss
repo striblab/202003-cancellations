@@ -98,6 +98,7 @@ $statusColors: (
       width: 100%;
       height: 100%;
       min-height: 25px;
+      border: 1px solid #cccccc;
 
           &:hover {
             cursor: pointer;
@@ -108,15 +109,15 @@ $statusColors: (
             }
           }*/
     }
-    input:checked + label {
-      // font-weight: bold;
-      border: 2px solid black;
-      // color: #006341;
+    input:checked + label.features{
+      border: 1px solid black;
     }
-    input:selected + label.type {
-      // font-weight: bold;
-      // border: 2px solid #006341;
+
+    input:not(:checked) + label.features{
+      /* Explicit Unchecked Styles */
+      opacity: 0.6;// Only apply border to unchecked state
     }
+
     @each $cat, $color in $statusColors {
       label.features.#{$cat} {
           /*display: inline-block; */
@@ -130,7 +131,8 @@ $statusColors: (
           position: relative;
           width: auto;
           color: black;
-          background-color: $color;
+          border: 1px solid #cccccc;
+          background-color: white;
       }
     }
     label.features, label.type {
@@ -182,8 +184,12 @@ $statusColors: (
       }
       input:checked + label {
         // font-weight: bold;
-        border: 2px solid black;
+        border: 1px solid black;
         // color: #006341;
+      }
+      input:not(:checked) + label{
+        /* Explicit Unchecked Styles */
+        opacity: 0.6;// Only apply border to unchecked state
       }
      /* input:checked + label.features::before {
         content: '-';

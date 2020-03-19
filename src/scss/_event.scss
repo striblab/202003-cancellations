@@ -29,6 +29,14 @@ $catColors: (
   justify-content: space-between;
   margin-bottom: 150px;
 
+  p.noResults {
+    color: #808080;
+    font-family: "Benton Sans", sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
   .eventCard {
     flex-basis: 32%;
     // max-width: 300px;
