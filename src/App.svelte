@@ -11,6 +11,7 @@
   let openFilteredEvents;
   let closedFilteredEvents;
   let search_term = '';
+  let search_timeout;
   let search = false;
   let category_labels = {
     'arts': 'Arts',
@@ -46,11 +47,12 @@
   // export let closed = ['Suspended/Postponed', 'Cancelled', 'Closed']
   // export let open = ['Open', 'Other']
   export let checked_cats = 'all';
-  export let checked_status = 'Open';
+  export let checked_status = 'All';
   export let scrollY;
   export let y_from_top;
   export let open_loc = [];
   export let closed_loc = [];
+  // export let art = [];
 
   export const clearFilters = function() {
     checked_cats = [];
@@ -80,6 +82,10 @@
     closed_loc = events.filter(function(d) {
       return d.status === 'Closed' || d.status === 'Cancelled' || d.status === 'Suspended/Postponed';
     })
+
+    // art = events.filter(function(d) {
+    //   return d.category === 'arts';
+    // })
 
     // console.log(open_loc)
     // console.log(closed_loc)
@@ -194,7 +200,7 @@
   <h3>Filter results by category</h3>
   {#each categories as category}
     <div class="feature {category}">
-      <input type=radio bind:group={checked_cats} value={category} class:all-selected="{categories == checked_cats}">
+      <input type=radio bind:group={checked_cats} value={category}>
       <label class="features {category}">{category_labels[category]}</label>
     </div>
   {/each}
@@ -204,7 +210,11 @@
 
 <div class="eventsContainer">
   {#if checked_status === 'Open'}
-    {#if openFilteredEvents.length == 0}
+    {#if checked_cats !== 'all' || search_term.length > 0}
+      {#each openFilteredEvents as event}
+        <Event {event}/>
+      {/each}
+    {:else if openFilteredEvents.length == 0}
       <p class="noResults">No results</p>
     {:else}
       {#each openFilteredEvents as event}
@@ -212,7 +222,11 @@
       {/each}
     {/if}
   {:else if checked_status === 'Closed'}
-    {#if closedFilteredEvents.length == 0}
+    {#if checked_cats !== 'all' || search_term.length > 0}
+      {#each closedFilteredEvents as event}
+        <Event {event}/>
+      {/each}
+    {:else if closedFilteredEvents.length == 0}
       <p class="noResults">No results</p>
     {:else}
       {#each closedFilteredEvents as event}
@@ -220,13 +234,21 @@
       {/each}
     {/if}
   {:else if checked_status === 'All'}
-    {#if filteredEvents.length == 0}
+    {#if checked_cats !== 'all' || search_term.length > 0}
+      {#each filteredEvents as event}
+        <Event {event}/>
+      {/each}
+    {:else if filteredEvents.length == 0}
       <p class="noResults">No results</p>
     {:else}
       {#each filteredEvents as event}
         <Event {event}/>
       {/each}
     {/if}
+  <!-- {:else if checked_cats === 'arts'}
+    {#each art as event}
+      <Event {event}/>
+    {/each} -->
   {/if}
 </div>
 
