@@ -7,7 +7,7 @@ $catColors: (
   grocery: #BA95BA70,
   pharm: #4BA05370,
   gov: #F7C58D70,
-  religious: #92B7D070,
+  volunteer: #92B7D070,
   restaurant: #EEB7D270,
   sports: #59BAA270,
   other: #F3E68C70
@@ -38,11 +38,11 @@ $catColors: (
   }
 
   .eventCard {
-    flex-basis: 32%;
+    flex-basis: 31%;
     position: relative;
     border: 1px solid #CCCCCC;
     padding: 12px;
-    margin: 6px 6px;
+    margin: 12px 6px;
 
     h5 {
       display: inline-block;
@@ -85,7 +85,8 @@ $catColors: (
     }
 
     p {
-      font-size: 14px;
+      font-size: 13.5px;
+      line-height: 140%;
       margin-top: 0;
       margin-bottom: 8px;
       font-family: "Benton Sans", sans-serif !important;

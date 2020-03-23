@@ -11,7 +11,6 @@
   let openFilteredEvents;
   let closedFilteredEvents;
   let search_term = '';
-  let search_timeout;
   let search = false;
   let category_labels = {
     'arts': 'Arts',
@@ -21,7 +20,7 @@
     'grocery': 'Groceries',
     'mall': 'Malls',
     'pharm': 'Pharmacies',
-    'religious': 'Religious',
+    'volunteer': 'Volunteering',
     'restaurant': 'Restaurants',
     'sports': 'Sports',
     'other': 'Other',
@@ -43,7 +42,9 @@
 
   // props
   export let events;
-  export let categories = ['all', 'arts', 'business', 'concert', 'gov', 'grocery', 'mall', 'pharm','religious', 'restaurant', 'sports', 'other']
+  export let search_timeout;
+  export let previous_search_term = '';
+  export let categories = ['all', 'arts', 'business', 'concert', 'gov', 'grocery', 'mall', 'pharm', 'restaurant', 'sports', 'volunteer', 'other']
   // export let closed = ['Suspended/Postponed', 'Cancelled', 'Closed']
   // export let open = ['Open', 'Other']
   export let checked_cats = 'all';
@@ -168,30 +169,52 @@
 
   }
 
-  // onMount(async function() {
-  //   getData();
-  // });
+  const logStatusClick = function (event) {
+		window.gtag("event", "Status selected", {'event_category': 'Cancellations/Openings', 'event_label': event.target.value});
+	}
+
+  const logCatClick = function (event) {
+		window.gtag("event", "Category selected", {'event_category': 'Cancellations/Openings', 'event_label': event.target.value});
+	}
+
+  const logSearch = function (event) {
+		clearTimeout(search_timeout);
+		search_timeout = setTimeout(function () {
+			if (event.target.value != previous_search_term) {
+				previous_search_term = event.target.value;
+				window.gtag("event", "Event search", {'event_category': 'Cancellations/Opening', 'event_label': event.target.value});
+			}
+		}, 1000);
+	}
+
+  onMount(() => {
+    window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+		window.gtag = gtag;
+	  gtag('js', new Date());
+	  gtag('config', 'UA-114906116-1');
+  });
 
 </script>
 
 <div class="search">
   <h3>Search</h3>
   <i class="strib-icon strib-search"></i>
-  <input bind:value={search_term} />
+  <input bind:value={search_term} on:keyup={logSearch}/>
 </div>
 
 <div class="statusFilter">
   <h3>Open or closed?</h3>
   <div class="feature">
-    <input type=radio bind:group={checked_status} value="All">
+    <input type=radio bind:group={checked_status} value="All" on:click={logStatusClick}>
     <label class="features all">All</label>
   </div>
   <div class="feature">
-    <input type=radio bind:group={checked_status} value="Open" checked>
+    <input type=radio bind:group={checked_status} value="Open" on:click={logStatusClick}>
     <label class="features Open">Open</label>
   </div>
   <div class="feature">
-    <input type=radio bind:group={checked_status} value="Closed">
+    <input type=radio bind:group={checked_status} value="Closed" on:click={logStatusClick}>
     <label class="features Closed">Closed</label>
   </div>
 </div>
@@ -200,7 +223,7 @@
   <h3>Filter results by category</h3>
   {#each categories as category}
     <div class="feature {category}">
-      <input type=radio bind:group={checked_cats} value={category}>
+      <input type=radio bind:group={checked_cats} value={category} on:click={logCatClick}>
       <label class="features {category}">{category_labels[category]}</label>
     </div>
   {/each}
@@ -245,10 +268,6 @@
         <Event {event}/>
       {/each}
     {/if}
-  <!-- {:else if checked_cats === 'arts'}
-    {#each art as event}
-      <Event {event}/>
-    {/each} -->
   {/if}
 </div>
 

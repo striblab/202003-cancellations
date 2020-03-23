@@ -23,11 +23,11 @@ def switch(i):
         "Grocery Store": 'grocery',
         "Mall": "mall",
         "Pharmacy": "pharm",
-        "Religious": "religious",
         "Restaurant": "restaurant",
         "School (K-12)": "k12_school",
         "School (University/college)": "college",
         "Sports": "sports",
+        "Volunteering": "volunteer",
         "Other": "other"
     }
     return switcher.get(i, "")
