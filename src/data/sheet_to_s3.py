@@ -35,7 +35,7 @@ def switch(i):
 # function to turn gsheet data to dictionary. row positions are hardcoded which is less than ideal
 def sheet_to_json(obj, filename):
     cancel_json = []
-    for row in islice(obj, 2, None):
+    for row in islice(obj, 1, None):
         timestamp = row[0]
         name = row[1]
         status = row[10]

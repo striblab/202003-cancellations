@@ -5,14 +5,7 @@ html, body {
 }
 
 .page-article .l-home-top-ad.resultsBanner {
-		max-width: 970px;
-    margin-left: auto;
-    margin-right: auto;
-		margin: 0 auto 30px auto;
-    padding: 18px 0 18px 0;
-    border-bottom: solid 1px #d3d3d3;
-    border-top: solid 1px #d3d3d3;
-    margin-top: 80px;
+    margin-top: 80px !important;
 }
 
 .content-scroll {
@@ -100,6 +93,14 @@ p.lastUpdated {
 
 		span {
 		  font-weight: normal !important;
+		}
+
+		a.author {
+			color: black !important;
+		}
+
+		a.author:hover {
+			opacity: 0.8;
 		}
 	}
 

@@ -8,7 +8,7 @@
     'grocery': 'Grocery Store',
         'mall': 'Mall',
     'pharm': 'Pharmacy',
-    'volunteer': 'Volunteering',
+    'volunteer': 'How to help',
     'restaurant': 'Restaurant',
     'sports': 'Sports',
     'other': 'Other',

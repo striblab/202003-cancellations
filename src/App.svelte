@@ -20,7 +20,7 @@
     'grocery': 'Groceries',
     'mall': 'Malls',
     'pharm': 'Pharmacies',
-    'volunteer': 'Volunteering',
+    'volunteer': 'How to help',
     'restaurant': 'Restaurants',
     'sports': 'Sports',
     'other': 'Other',
