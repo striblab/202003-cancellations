@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
 	import { intcomma } from 'journalize';
   import Event from './Event.svelte'
-  import json from './data/cancellations.json'
+  import json from './data/public_cancellations.json'
 
   // local component variables
   // let json = [];
@@ -16,6 +16,7 @@
     'arts': 'Arts',
     'business': 'Business',
     'concert': 'Concerts',
+    'farm': 'Farms/Farmers Markets',
     'gov': 'Government',
     'grocery': 'Groceries',
     'mall': 'Malls',
@@ -25,6 +26,11 @@
     'sports': 'Sports',
     'other': 'Other',
     'all': 'All'
+  }
+  let area_labels = {
+    'tc': "Twin Cities",
+    'greater_mn': "Greater Minnesota",
+    'wisc': "Wisconsin"
   }
 
   // let getData = async function() {
@@ -44,15 +50,19 @@
   export let events;
   export let search_timeout;
   export let previous_search_term = '';
-  export let categories = ['all', 'arts', 'business', 'concert', 'gov', 'grocery', 'mall', 'pharm', 'restaurant', 'sports', 'volunteer', 'other']
+  export let categories = ['all', 'arts', 'business', 'concert', 'farm', 'gov', 'grocery', 'mall', 'pharm', 'restaurant', 'sports', 'volunteer', 'other']
   // export let closed = ['Suspended/Postponed', 'Cancelled', 'Closed']
   // export let open = ['Open', 'Other']
   export let checked_cats = 'all';
   export let checked_status = 'All';
+  export let checked_area = 'all';
   export let scrollY;
   export let y_from_top;
   export let open_loc = [];
   export let closed_loc = [];
+  export let tc_ev = [];
+  export let greater_mn_ev = [];
+  export let wisc_ev = [];
   // export let art = [];
 
   export const clearFilters = function() {
@@ -72,9 +82,9 @@
   // reactive variables
   $: {
     events = json.filter(function(d) {
-      return d.category !== 'k12_school' || d.category !== 'college'
+      return d.publish === 'yes';
     })
-    events = events.reverse();
+    // events = events.reverse();
 
     open_loc = events.filter(function(d) {
       return d.status == 'Open' || d.status == 'Other';
@@ -82,6 +92,18 @@
 
     closed_loc = events.filter(function(d) {
       return d.status === 'Closed' || d.status === 'Cancelled' || d.status === 'Suspended/Postponed';
+    })
+
+    tc_ev = events.filter(function(d) {
+      return d.location === 'tc';
+    })
+
+    greater_mn_ev = events.filter(function(d) {
+      return d.location === 'greater_mn';
+    })
+
+    wisc_ev = events.filter(function(d) {
+      return d.location === 'wisc';
     })
 
     // art = events.filter(function(d) {
@@ -101,6 +123,12 @@
         else if (checked_cats != 'all' && event.category != checked_cats) {
       		match = false;
       	}
+
+        let location = event.location;
+          if (checked_area != 'all' && location.toLowerCase().indexOf(checked_area.toLowerCase()) === -1) {
+            match = false
+          }
+
         let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
           if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
       			match = false;
@@ -119,6 +147,12 @@
         else if (checked_cats != 'all' && event.category != checked_cats) {
       		match = false;
       	}
+
+        let location = event.location;
+          if (checked_area != 'all' && location.toLowerCase().indexOf(checked_area.toLowerCase()) === -1) {
+            match = false
+          }
+
         let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
           if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
       			match = false;
@@ -136,6 +170,12 @@
         else if (checked_cats != 'all' && event.category != checked_cats) {
       		match = false;
       	}
+
+        let location = event.location;
+          if (checked_area != 'all' && location.toLowerCase().indexOf(checked_area.toLowerCase()) === -1) {
+            match = false
+          }
+
         let search_blob = event.event_name + ' ' + event.city + ' ' + event.venue;
           if (search_term != '' && search_blob.toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
       			match = false;
@@ -200,7 +240,7 @@
 <div class="search">
   <h3>Search</h3>
   <i class="strib-icon strib-search"></i>
-  <input bind:value={search_term} on:keyup={logSearch}/>
+  <input placeholder="ex: Duluth" bind:value={search_term} on:keyup={logSearch}/>
 </div>
 
 <div class="statusFilter">
@@ -219,6 +259,26 @@
   </div>
 </div>
 
+<div class="statusFilter">
+  <h3>Area</h3>
+  <div class="feature">
+    <input type=radio bind:group={checked_area} value="all" on:click={logStatusClick}>
+    <label class="features all">All</label>
+  </div>
+  <div class="feature">
+    <input type=radio bind:group={checked_area} value="tc" on:click={logStatusClick}>
+    <label class="features all">Twin Cities</label>
+  </div>
+  <div class="feature">
+    <input type=radio bind:group={checked_area} value="greater_mn" on:click={logStatusClick}>
+    <label class="features Open">Greater Minnesota</label>
+  </div>
+  <!-- <div class="feature">
+    <input type=radio bind:group={checked_area} value="wisc" on:click={logStatusClick}>
+    <label class="features Closed">Wisconsin</label>
+  </div> -->
+</div>
+
 <div class="categorySelector">
   <h3>Filter results by category</h3>
   {#each categories as category}
@@ -232,8 +292,9 @@
 <p class="lastUpdated">Last updated: {events[0].last_update}</p>
 
 <div class="eventsContainer">
+
   {#if checked_status === 'Open'}
-    {#if checked_cats !== 'all' || search_term.length > 0}
+    {#if checked_cats !== 'all'}
       {#each openFilteredEvents as event}
         <Event {event}/>
       {/each}
@@ -245,7 +306,7 @@
       {/each}
     {/if}
   {:else if checked_status === 'Closed'}
-    {#if checked_cats !== 'all' || search_term.length > 0}
+    {#if checked_cats !== 'all'}
       {#each closedFilteredEvents as event}
         <Event {event}/>
       {/each}
@@ -257,7 +318,7 @@
       {/each}
     {/if}
   {:else if checked_status === 'All'}
-    {#if checked_cats !== 'all' || search_term.length > 0}
+    {#if checked_cats !== 'all'}
       {#each filteredEvents as event}
         <Event {event}/>
       {/each}
@@ -269,6 +330,7 @@
       {/each}
     {/if}
   {/if}
+
 </div>
 
 <!-- <section id="credits">

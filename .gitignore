@@ -6,3 +6,4 @@ yarn.lock
 .env
 sid-birthday-828b92e8896c.json
 cancellations.json
+public_cancellations.json
